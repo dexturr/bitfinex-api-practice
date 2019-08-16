@@ -3,7 +3,32 @@ import logo from './logo.svg';
 import './App.css';
 import { w3cwebsocket } from 'websocket';
 
+const handleUpdate = (message) => {
+  // Find the appropriate market this update pertains to
 
+  // Dispatch relavent actions
+}
+
+const handleMessage = (message) => {
+  switch (message.event) {
+    case 'subscribed':  
+      console.log(message);      
+      break;
+    case 'unsubscribed':    
+      break;
+    case 'info':        
+      break;
+    case 'pong':        
+      break;
+    case 'error':
+      // handle error
+      break;
+    default:
+    console.log(message);
+      throw new Error('Unknown event:', message.event);
+      break;
+  }
+}
 
 function App() {
 
@@ -22,7 +47,6 @@ function App() {
           symbol: 'tBTCUSD' 
         })
         client.send(msg);
-  
     };
     
     client.onclose = function() {
@@ -33,28 +57,14 @@ function App() {
         const message = JSON.parse(e.data);
         if (Array.isArray(message)) {
           //update
+          handleUpdate(message);
         } else {
-          //subscription
-        if (message.event === 'subscribed') {
-          if (message.chanId) {
-            let msg2 = JSON.stringify({ 
-              event: 'unsubscribe', 
-              chanId: message.chanId,  
-            })
-            client.send(msg2);
-          }
-        } else if (message.event === 'unsubscribed'){
-          console.log(message);          
-        } else if (message.event === 'info') {
-          console.log(message);          
-  
-        } 
-        else {
-          throw new Error(JSON.stringify(message));
-        }
-  
+          // Message (subscription ect.)
+          handleMessage(message);
       }
-    };
+    }; 
+
+    return () => client.close();
   });
 
   return (
