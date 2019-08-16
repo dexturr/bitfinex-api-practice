@@ -5,7 +5,7 @@ const handleUpdate = (message) => {
     // Find the appropriate market this update pertains to
   
     // Dispatch relavent actions
-  }
+}
   
   const handleMessage = (message) => {
     switch (message.event) {
@@ -24,7 +24,6 @@ const handleUpdate = (message) => {
       default:
       console.log(message);
         throw new Error('Unknown event:', message.event);
-        break;
     }
   }
 
@@ -72,7 +71,7 @@ export default function app(state = INITAL_STATE, action) {
             return {
                 websocket: client,
             }
-        break;
+        default:
+            return state;
     }
-    return state;
 }
