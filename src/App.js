@@ -1,16 +1,24 @@
 import React from 'react';
 import './App.css';
-import { createConnectToWebsocket } from './redux/action-creators';
-import { useDispatch } from 'react-redux';
+import { createWsSubscribeToTicker } from './redux/action-creators';
+import { useDispatch, useSelector } from 'react-redux';
+
+const Home = () => {
+  const dispatch = useDispatch(createWsSubscribeToTicker({ symbol: 'tBTCUSD'}));
+  
+  return (<section>
+    Ready
+  </section>)
+}
 
 function App() {
-  const dispatch = useDispatch();
-  dispatch(createConnectToWebsocket({ abc: 'easy as 123'}));
+  const { ready } = useSelector((state) => {
+    return state.websocket;
+  });
 
-  return (
-    <div className="App">
-    </div>
-  );
+  debugger;
+
+  return !ready ? 'Loading' : <Home />;
 }
 
 export default App;
