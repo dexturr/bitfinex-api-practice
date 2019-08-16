@@ -14,6 +14,8 @@ const generateTickerMessage = ({ symbol }) => {
 const createConnectToWebsocket = createAction(ACTIONS.CONNECT_TO_WEBSOCKET);
 const createWsSubscribeToTickerAction = createAction(ACTIONS.WS_SUBSCRIBE_TO_TICKER);
 const createWsConnected = createAction(ACTIONS.WS_CONNECTED);
+const createWsSubscriptionSuccessful = createAction(ACTIONS.WS_SUBSCRIPTION_SUCCESSFUL);
+const createWsSubscriptionUpdate = createAction(ACTIONS.WS_SUBSCRIPTION_UPDATE);
 
 const createWsSubscribeToTicker = (payload) => {
     const message = generateTickerMessage(payload);
@@ -25,4 +27,6 @@ export {
     createConnectToWebsocket,
     createWsSubscribeToTicker,
     createWsConnected,
+    createWsSubscriptionSuccessful,
+    createWsSubscriptionUpdate,
 }

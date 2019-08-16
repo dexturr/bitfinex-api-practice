@@ -1,5 +1,6 @@
 import { w3cwebsocket } from 'websocket';
-import { createWsConnected } from '../redux/action-creators';
+import { createWsConnected, createWsSubscriptionSuccessful, createWsSubscriptionUpdate } from '../redux/action-creators';
+import { tickerResponseMessage } from './responses';
 
 const client = new w3cwebsocket('wss://api-pub.bitfinex.com/ws/2', 'echo-protocol');
 
@@ -23,11 +24,22 @@ export const init = (store) => {
           // dispatch update/subscription actions
           const message = JSON.parse(e.data);
           if (Array.isArray(message)) {
-            //update
-            // handleUpdate(message);
+            store.dispatch(
+                createWsSubscriptionUpdate(
+                    tickerResponseMessage(message)
+                )
+            );
           } else {
+            switch (message.event) {
+                case "subscribed":
+                store.dispatch(createWsSubscriptionSuccessful(message));
+                    break;
+                default:
+                    break;
+            }
             // Message (subscription ect.)
             // handleMessage(message);
+            
         }
     }
 }

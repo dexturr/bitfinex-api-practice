@@ -27,20 +27,44 @@ import { w3cwebsocket } from 'websocket';
 //     }
 //   }
 
-const INITAL_STATE = {
+const INITIAL_STATE = {
     websocket: {
         ready: false,
+    },
+    tickers: [],
+    subscriptions: {
+        tickerSubscriptions: [],
     }
 };
 
-export default function app(state = INITAL_STATE, action) {
+export default function app(state = INITIAL_STATE, action) {
+    console.log(state);
     switch (action.type) {
         case ACTIONS.WS_CONNECTED:
-        const { websocket } = state;
-        return {
-            ...websocket,
-            ready: true,
-        }
+            const { websocket } = state;
+            return {
+                ...state,
+                websocket: {
+                    ...websocket,
+                    ready: true,
+                }
+            }
+        case ACTIONS.WS_SUBSCRIPTION_SUCCESSFUL:
+            const { tickerSubscriptions } = state.subscriptions;
+            return {
+                ...state,
+                subscriptions: {
+                    ...state.subscriptions,
+                    tickerSubscriptions: [...tickerSubscriptions, action.payload],
+                }
+            }
+        case ACTIONS.WS_SUBSCRIPTION_UPDATE: 
+            const { tickers } = state;
+            
+            return {
+                ...state,
+                tickers: [...tickers.filter(({ channelId }) => channelId !== action.payload.channelId), action.payload]
+            }
         default:
             return state;
     }
