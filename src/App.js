@@ -16,8 +16,6 @@ function App() {
     return state.websocket;
   });
 
-  debugger;
-
   return !ready ? 'Loading' : <Home />;
 }
 

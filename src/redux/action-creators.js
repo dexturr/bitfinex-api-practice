@@ -17,7 +17,6 @@ const createWsConnected = createAction(ACTIONS.WS_CONNECTED);
 
 const createWsSubscribeToTicker = (payload) => {
     const message = generateTickerMessage(payload);
-    debugger;
     emit(message);
     return createWsSubscribeToTickerAction(message);
 }
