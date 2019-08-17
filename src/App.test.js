@@ -1,14 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import App from './App';
-import { expect } from 'chai';
+import { renderComponent } from './tests/test-harness';
+import { useSelector } from 'react-redux';
 
-const TestComp = () => {
+const TestComp = ({test}) => {
+  useSelector((store) => {
+    console.log(store);
+  })
   return <h1>TEST</h1>
 }
 
-it('renders without crashing', () => {
-  const comp = mount(<TestComp />);
-
-  expect(comp.find('h1')).to.have.lengthOf(1);
+it('test harness', function() {
+  renderComponent(TestComp, {test: 123})
+  // console.log(reduxComponent);
+  
 });
