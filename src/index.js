@@ -7,7 +7,10 @@ import reducer from './redux/reducer';
 import { createStore } from 'redux'
 import { init } from './websocket/websocket';
 
-const store = createStore(reducer);
+const store = createStore(
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 init(store);
 
 ReactDOM.render( 

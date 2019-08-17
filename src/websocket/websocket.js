@@ -41,9 +41,6 @@ export const init = (store) => {
                 default:
                     break;
             }
-            // Message (subscription ect.)
-            // handleMessage(message);
-            
         }
     }
 }
