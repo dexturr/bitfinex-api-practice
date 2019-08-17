@@ -7,6 +7,8 @@ import reducer from './redux/reducer';
 import { createStore } from 'redux'
 import { init } from './websocket/websocket';
 
+import TickerTable from './components/ticker-table/ticker-table'
+
 const store = createStore(
   reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -15,7 +17,7 @@ init(store);
 
 ReactDOM.render( 
   <Provider store={store}>
-    <App />
+    <TickerTable />
   </Provider>, 
   document.getElementById('root')
 );
