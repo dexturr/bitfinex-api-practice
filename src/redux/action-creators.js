@@ -1,7 +1,6 @@
 import ACTIONS from './action-types';
 import { createAction } from 'redux-actions';
 import { emit } from '../websocket/websocket';
-import { create } from 'domain';
 
 const generateTickerMessage = ({ symbol }) => {
     return { 

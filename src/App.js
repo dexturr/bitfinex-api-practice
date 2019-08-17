@@ -4,9 +4,19 @@ import { createWsSubscribeToTicker } from './redux/action-creators';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Home = () => {
-  const dispatch = useDispatch(createWsSubscribeToTicker({ symbol: 'tBTCUSD'}));
-  
-  return (<section>
+  const symbol = 'tBTCUSD';
+  // needs a use effect with clean up in the form of unsubscribe
+  const dispatch = useDispatch();
+  dispatch(createWsSubscribeToTicker({ symbol }));
+  const ticker = useSelector((state) => {
+    // console.log(state.tickers);
+    const ticker = state.subscriptions.tickerSubscriptions.find(({symbol: ticketSymbol}) => symbol === ticketSymbol);
+    const tickerData = state.tickers.find(({ channelId }) => channelId === (ticker && ticker.chanId));
+    return tickerData;
+  })
+  console.log(ticker);
+  return (
+  <section>
     Ready
   </section>)
 }

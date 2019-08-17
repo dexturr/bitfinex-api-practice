@@ -1,9 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { mount } from 'enzyme';
 import App from './App';
+import { expect } from 'chai';
+
+const TestComp = () => {
+  return <h1>TEST</h1>
+}
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  const comp = mount(<TestComp />);
+
+  expect(comp.find('h1')).to.have.lengthOf(1);
 });

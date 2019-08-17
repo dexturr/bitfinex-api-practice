@@ -38,7 +38,7 @@ const INITIAL_STATE = {
 };
 
 export default function app(state = INITIAL_STATE, action) {
-    console.log(state);
+    // console.log(state);
     switch (action.type) {
         case ACTIONS.WS_CONNECTED:
             const { websocket } = state;
@@ -60,7 +60,7 @@ export default function app(state = INITIAL_STATE, action) {
             }
         case ACTIONS.WS_SUBSCRIPTION_UPDATE: 
             const { tickers } = state;
-            
+            // TODO only need the tickerSubscriptions array
             return {
                 ...state,
                 tickers: [...tickers.filter(({ channelId }) => channelId !== action.payload.channelId), action.payload]
