@@ -34,6 +34,8 @@ export const init = (store) => {
                 case "subscribed":
                 store.dispatch(createWsSubscriptionSuccessful(message));
                     break;
+                case 'error': 
+                    throw new Error('Webscoket error', JSON.stringify(message));
                 default:
                     break;
             }

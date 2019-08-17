@@ -31,14 +31,12 @@ const INITIAL_STATE = {
     websocket: {
         ready: false,
     },
-    tickers: [],
     subscriptions: {
         tickerSubscriptions: [],
     }
 };
 
 export default function app(state = INITIAL_STATE, action) {
-    // console.log(state);
     switch (action.type) {
         case ACTIONS.WS_CONNECTED:
             const { websocket } = state;
@@ -59,11 +57,24 @@ export default function app(state = INITIAL_STATE, action) {
                 }
             }
         case ACTIONS.WS_SUBSCRIPTION_UPDATE: 
-            const { tickers } = state;
-            // TODO only need the tickerSubscriptions array
+            const { tickerSubscriptions: ts } = state.subscriptions;
+            const ticker = ts.find(({ chanId }) => action.payload.channelId === chanId);
+
+            const newTicker = {
+                ...ticker,
+                data: {
+                    ...action.payload.data
+                }
+            }
             return {
                 ...state,
-                tickers: [...tickers.filter(({ channelId }) => channelId !== action.payload.channelId), action.payload]
+                subscriptions: {
+                    ...state.subscriptions,
+                    tickerSubscriptions: [
+                        ...ts.filter(({ chanId }) => action.payload.channelId !== chanId),
+                        newTicker,
+                    ],
+                }
             }
         default:
             return state;
