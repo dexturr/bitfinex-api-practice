@@ -7,7 +7,7 @@ export default ({ rows, headers }) => {
           <tr>
             {
                 Object.keys(headers).map(
-                (key) => <th scope="col">{key}</th>)
+                (key) => <th key={key} scope="col">{key}</th>)
             }
           </tr>
         </thead>

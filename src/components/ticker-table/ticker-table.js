@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import camelcase from 'camelcase';
 import Table from '../table/table';
+import Loading from '../loading/loading';
 
 const tradingPairSchema =  [
     'SYMBOL',
@@ -71,5 +72,5 @@ export default (props) => {
         }
         fetchTickers();
     }, []);
-    return loading ? 'Loading' : <Table rows={rows} headers={headers} />
+    return loading ? <Loading /> : <Table rows={rows} headers={headers} />
 }
