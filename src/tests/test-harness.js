@@ -1,18 +1,21 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { mergeDeepRight } from 'ramda';
-import rootReducer from '../redux/reducer';
+import rootReducer, { INITIAL_STATE } from '../redux/reducer';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux';
 
-export const renderComponent = (Component, props) => {
+export const setupTest = (Component, props) => {
     const store = createReduxStore();
     const renderComponent = makeMountRender(reduxify(Component, props, store));
-    renderComponent();
+    return {
+        store,
+        renderComponent,
+    }
 }
 
 // Need to import initial state
-export const createReduxStore = (state = {}) => makeStore(state); 
+export const createReduxStore = (state = INITIAL_STATE) => makeStore(state); 
 
 export const reduxify = (Component, props = {}, store) => {
   return function reduxWrap() {

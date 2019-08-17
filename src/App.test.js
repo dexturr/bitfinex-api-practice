@@ -1,16 +1,24 @@
-import React from 'react';
-import { renderComponent } from './tests/test-harness';
-import { useSelector } from 'react-redux';
+import { setupTest } from './tests/test-harness';
+import { expect } from 'chai';
+import App from './App';
+import { createWsConnected } from './redux/action-creators';
 
-const TestComp = ({test}) => {
-  useSelector((store) => {
-    console.log(store);
-  })
-  return <h1>TEST</h1>
-}
+let store, renderComponent;
 
-it('test harness', function() {
-  renderComponent(TestComp, {test: 123})
-  // console.log(reduxComponent);
-  
+beforeEach(function() {
+  const testState = setupTest(App);
+  store = testState.store;
+  renderComponent = testState.renderComponent;
+})
+
+it('it renders a loading state initially', function() {
+  const component = renderComponent(App)
+  expect(component.find('div').text()).to.equal('Loading');
+});
+
+it('it renders home component once loading is complete', function() {
+  const component = renderComponent(App);
+  store.dispatch(createWsConnected());
+  component.update();
+  expect(component.find('Home')).to.have.lengthOf(1);
 });

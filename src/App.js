@@ -23,9 +23,7 @@ const Home = () => {
   // needs a use effect with clean up in the form of unsubscribe
   const ticker = useTickerSubscription(symbol);
 
-  console.log(ticker);
-
-  return !(ticker && ticker.data) ? 'loading': 
+  return !(ticker && ticker.data) ? <h1>asd</h1>: 
   <section>
     {ticker.data.bid}
   </section>
@@ -36,7 +34,7 @@ function App() {
     return state.websocket;
   });
 
-  return !ready ? 'Loading' : <Home />;
+  return !ready ? <div>Loading</div> : <Home />;
 }
 
 export default App;

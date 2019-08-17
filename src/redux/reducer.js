@@ -1,33 +1,7 @@
 import ACTIONS from './action-types';
-import { w3cwebsocket } from 'websocket';
 
-// const handleUpdate = (message) => {
-//     // Find the appropriate market this update pertains to
-  
-//     // Dispatch relavent actions
-// }
-  
-//   const handleMessage = (message) => {
-//     switch (message.event) {
-//       case 'subscribed':  
-//         console.log(message);      
-//         break;
-//       case 'unsubscribed':    
-//         break;
-//       case 'info':        
-//         break;
-//       case 'pong':        
-//         break;
-//       case 'error':
-//         // handle error
-//         break;
-//       default:
-//       console.log(message);
-//         throw new Error('Unknown event:', message.event);
-//     }
-//   }
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
     websocket: {
         ready: false,
     },
