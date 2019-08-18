@@ -3,6 +3,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
+// TODO shareable
 const exists = (component, selector, { count }) => expect(component.find(selector)).to.have.lengthOf(count); 
 const doesNotExist = (component, selector) => exists(component, selector, { count: 0 });
 const hasText = (component, selector, text) => expect(component.find(selector).text()).to.equal(text);

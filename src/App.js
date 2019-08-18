@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import withLoading from './components/loading/with-loading';
 import TickerTable from './components/ticker-table/ticker-table';
 import Panel from './components/panel/panel';
+import 'react-virtualized/styles.css'
 
 // const useTickerSubscription = (symbol) => {
 //   const dispatch = useDispatch();

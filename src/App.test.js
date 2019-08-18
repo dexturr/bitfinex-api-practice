@@ -6,18 +6,18 @@ import App from './App';
 // using jest-websocket-mock I get test timeouts due to async functions still execting.
 // need some kind of server.send(/** message detail */) function that correctly mocks WS responses.
 
-// Then I can have full acceptance tests:
+// Then I can have nice acceptance tests:
 /**
  * it('should update state when receiving server message', function() {
  *  const component = setupTest(props);
  *  server.send(msg);
  *  component.update();
- *  server.messages.includes(subscriptionMessage);
+ *  server.receivedMessages.includes(subscriptionMessage);
  *  server.send(msg);
  *  component.update();
  *  expect(component).to.have.updated.some.property;
  *  component.detach();
- *  server.messages.includes(unsubscribeMessage);
+ *  server.receivedMessages.includes(unsubscribeMessage);
  * })
  */
 
@@ -34,5 +34,5 @@ beforeEach(function() {
 
 it('it renders a loading state initially', function() {
   const component = renderComponent(App)
-  expect(component.find('div').text()).to.equal('Loading');
+  expect(component.find('.lds-spinner')).to.have.lengthOf(1);;
 });
