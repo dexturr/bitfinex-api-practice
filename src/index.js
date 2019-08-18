@@ -17,7 +17,7 @@ init(store);
 
 ReactDOM.render( 
   <Provider store={store}>
-    <TickerTable />
+    <App />
   </Provider>, 
   document.getElementById('root')
 );

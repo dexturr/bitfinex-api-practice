@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { createWsSubscribeToTicker } from './redux/action-creators';
 import { useDispatch, useSelector } from 'react-redux';
+import withLoading from './components/loading/with-loading';
 
 const useTickerSubscription = (symbol) => {
   const dispatch = useDispatch();
@@ -29,12 +30,16 @@ const Home = () => {
   </section>
 }
 
+const LoadingHome = withLoading(Home);
+
+console.log(LoadingHome);
+
 function App() {
   const { ready } = useSelector((state) => {
     return state.websocket;
   });
 
-  return !ready ? <div>Loading</div> : <Home />;
+  return <LoadingHome loading={!ready}/>;
 }
 
 export default App;
