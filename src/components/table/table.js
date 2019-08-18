@@ -2,12 +2,41 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Column } from 'react-virtualized'
 import _ from 'lodash';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { createWsSubscribeToTicker } from '../../redux/action-creators';
+// import { defaultTableRowRenderer } from 'react-virtualized';
+// import { useEffect } from 'react';
+
+// const useTickerSubscription = (symbol) => {
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(createWsSubscribeToTicker({ symbol }));
+//   }, [dispatch, symbol]);
+
+//   return useSelector((state) => {
+//     const ticker = state
+//       .subscriptions
+//       .tickerSubscriptions
+//       .find(({symbol: ticketSymbol}) => symbol === ticketSymbol);
+//     return ticker;
+//   });
+// }
+
+// const SubscriptionWrapper = (props) => {
+//   console.log(props);
+//   const ticket = useTickerSubscription()
+// }
+
+// const withSub = (Component) => (props) => {
+//   return <Component {...props} />
+// }
+
+// const rowRenderer = withSub(defaultTableRowRenderer);
 
 const VirtualizedTable = ({ rows, headers }) => {
   const [defaultSortKey] = Object.values(headers);
   const [sortKey, setSortKey] = useState(defaultSortKey);
   const [sortDirection, setSortDirection] = useState('ASC');
-
 
   const sort = useCallback(() => {
     return _.orderBy(rows, [sortKey], [sortDirection.toLowerCase()]);
@@ -24,8 +53,6 @@ const VirtualizedTable = ({ rows, headers }) => {
     setSortedRows(sortedRows);
   };
 
-
-
   return (
     <Table
       width={800}
@@ -37,6 +64,7 @@ const VirtualizedTable = ({ rows, headers }) => {
       sort={performSort}
       sortBy={sortKey}
       sortDirection={sortDirection}
+      rowRenderer={rowRenderer}
     >
     {keys.map(key =>
       (<Column
