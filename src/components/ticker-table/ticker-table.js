@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import camelcase from 'camelcase';
 import Table from '../table/table';
-import Loading from '../loading/loading';
+import withLoading from '../loading/with-loading';
 
 const tradingPairSchema =  [
     'SYMBOL',
@@ -47,6 +47,8 @@ const schemaToObjectMaker = (schema) => (data) => schema
 const fundingCurencySchemaMapper = schemaToObjectMaker(fundingCurrencySchema);
 const tradingPairSchemaMapper = schemaToObjectMaker(tradingPairSchema);
 
+const WrappedTable = withLoading(Table);
+
 export default (props) => {
     const [ loading, setLoading ] = useState(true);
     const [ rows, setRows ] = useState([]);
@@ -72,5 +74,6 @@ export default (props) => {
         }
         fetchTickers();
     }, []);
-    return loading ? <Loading /> : <Table rows={rows} headers={headers} />
+
+    return <WrappedTable loading={loading} rows={rows} headers={headers} />
 }
