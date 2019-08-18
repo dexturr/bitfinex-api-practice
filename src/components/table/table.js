@@ -4,22 +4,27 @@ import { Table, Column } from 'react-virtualized'
 import _ from 'lodash';
 
 const VirtualizedTable = ({ rows, headers }) => {
-  const [sortedRows, setSortedRows] = useState(rows);
-  const keys = Object.keys(headers);
   const [defaultSortKey] = Object.values(headers);
-  const [sortDirection, setSortDirection] = useState('ASC');
   const [sortKey, setSortKey] = useState(defaultSortKey);
+  const [sortDirection, setSortDirection] = useState('ASC');
+
+
+  const sort = useCallback(() => {
+    return _.orderBy(rows, [sortKey], [sortDirection.toLowerCase()]);
+  }, [rows, sortKey, sortDirection]);
+
+  const [sortedRows, setSortedRows] = useState(sort());
+
+  const keys = Object.keys(headers);
 
   const performSort = ({sortBy, sortDirection}) => {
     setSortDirection(sortDirection);
     setSortKey(sortBy);
-    sort();
+    const sortedRows = sort();
+    setSortedRows(sortedRows);
   };
 
-  const sort = useCallback(() => {
-    const newlySortedRows = _.orderBy(rows, [sortKey], [sortDirection.toLowerCase()]);
-    setSortedRows(newlySortedRows);
-  }, [rows, sortKey, sortDirection]);
+
 
   return (
     <Table
