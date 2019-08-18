@@ -64,7 +64,6 @@ const VirtualizedTable = ({ rows, headers }) => {
       sort={performSort}
       sortBy={sortKey}
       sortDirection={sortDirection}
-      rowRenderer={rowRenderer}
     >
     {keys.map(key =>
       (<Column
