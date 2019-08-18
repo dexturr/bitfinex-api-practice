@@ -4,6 +4,7 @@ import { createWsSubscribeToTicker } from './redux/action-creators';
 import { useDispatch, useSelector } from 'react-redux';
 import withLoading from './components/loading/with-loading';
 import TickerTable from './components/ticker-table/ticker-table';
+import Panel from './components/panel/panel';
 
 // const useTickerSubscription = (symbol) => {
 //   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const Home = () => {
   // needs a use effect with clean up in the form of unsubscribe
   // const ticker = useTickerSubscription(symbol);
 
-  return <TickerTable />
+  return (<Panel header='Tickers'>
+    <TickerTable />
+  </Panel>)
 }
 
 const LoadingHome = withLoading(Home);
